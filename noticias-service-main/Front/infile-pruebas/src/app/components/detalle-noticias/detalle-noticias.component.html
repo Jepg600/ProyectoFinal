@@ -1,0 +1,33 @@
+<div *ngIf="noticia" class="detalle-noticia-container">
+  
+  <mat-toolbar color="primary">
+    <span>{{ noticia.titulo }}</span>
+  </mat-toolbar>
+  <p class="subtitulo">
+    <strong>Fecha:</strong> {{ noticia.fecha_creacion }} /
+    <strong>Clasificación:</strong> {{ noticia.clasificacion.nombre }}
+  </p>
+  
+  <div class="noticia-imagen-container">
+    <img [src]="noticia.enlace_photo" alt="{{ noticia.titulo }}" class="noticia-img">
+  </div>
+  
+  <p class="noticia-texto">{{ noticia.texto }}</p>
+  
+  <h2 class="noticias-relacionadas-titulo">Noticias Relacionadas</h2>
+  
+  <div *ngIf="noticiasRelacionadas.length > 0" class="related-news">
+    <mat-card *ngFor="let noticiaRel of noticiasRelacionadas" class="related-card">
+      <img mat-card-image [src]="noticiaRel.enlace_photo" alt="Noticia relacionada" class="related-img">
+      <mat-card-title>{{ noticiaRel.titulo }}</mat-card-title>
+      <mat-card-content>{{ noticiaRel.descripcion }}</mat-card-content>
+      <button mat-raised-button color="primary" [routerLink]="['/detalle-noticias', noticiaRel.id_noticias]">Ver más</button>
+    </mat-card>
+  </div>
+  
+  <div *ngIf="noticiasRelacionadas.length === 0">
+    <p class="sin-relacionadas">No hay noticias relacionadas.</p>
+  </div>
+  
+  <button mat-button routerLink="/noticias"><mat-icon>arrow_back_ios</mat-icon>Regresar</button>
+</div>
